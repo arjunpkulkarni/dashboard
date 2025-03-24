@@ -1,0 +1,114 @@
+local_document	document_number	document_name	product	disease_state	num_pages	unique_local_page_count	reuse_p
+1520261	BCL2-US-00282-FM	P_VIALE-T (M19-063) Protocol Overview (v6.0)	Venclexta	Acute Myeloid Leukemia (AML)	71	52	73.23943661971832
+1544780	BCL2-US-00285-FM	R_VIALE-T (M19-063) FAQ (v5.0)	Venclexta	Acute Myeloid Leukemia (AML)	54	24	44.44444444444444
+1629593	JAKa-US-00437-FM	P_UPA RA, PsA, AD,UC, AS, nr-axSpA, and CD Medical Indications and Important Safety Considerations (v6.0)	Upadacitinib	Ankylosing Spondylitis (AS), Atopic Dermatitis (AD), Crohns Disease (CD), Non-radiographic Axial Spondyloarthropathy (nrAxSpA), Psoriatic Arthritis (PsA), Rheumatoid Arthritis (RA), Ulcerative Colitis (UC)	3	1	33.33333333333333
+1649811	ABBV-US-00631-FM	P_Raising Awareness of Diseases in the Workforce_FINAL APPROVED_05-02-23 (v2.0)	AbbVie	Acute Treatment of Migraine, Atopic Dermatitis (AD), Bipolar Disorder, Chronic Migraine (CM), Crohns Disease (CD), Disease-state (US CRM), Endometriosis, Episodic Migraine, Fibroids, Immunology Cross-TA, Inflammatory Bowel Disease (IBD), Migraine, No Disease State, Prevention of Migraine, Rheumatoid Arthritis (RA), Ulcerative Colitis (UC)	240	7	2.9166666666666665
+1681289	RISN-US-00262-FM	R_Skyrizi Reactive Deck MOSL (v5.0)	Risankizumab	Crohns Disease (CD), Psoriasis (Ps), Psoriatic Arthritis (PsA)	137	8	5.839416058394161
+1701274	RISN-US-00264-FM	P_RZB CD Clinical Trial Overview Four-Pager (v1.0)	Risankizumab	Crohns Disease (CD)	3	1	33.33333333333333
+1734068	RISN-US-00268-FM	REACTIVE_RZB CD IMA (v2.0)	Risankizumab	Crohns Disease (CD)	41	26	63.41463414634146
+1789974	RISN-US-00284-FM	P_SKYRIZI CD Short Clinical_MOSL (v5.0)	Risankizumab	Crohns Disease (CD)	33	2	6.0606060606060606
+1814196	RISN-US-00289-FM	R_RZB CD IMA_For GMI Use Only (v4.0)	Risankizumab	Crohns Disease (CD)	98	31	31.63265306122449
+2046316	RISN-US-00319-FM	UEGW_RZB-CD # Prior Failed Biologics (v2.0)	Risankizumab	Crohns Disease (CD)	11	2	18.181818181818183
+2245565	BCL2-US-00328-FM	REVENG (M20-356) STV Deck 2024 (v5.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	45	44	97.77777777777777
+2273170	RISN-US-00344-FM	Proactive_RZB CD OBI Real Life Handling Study (AIBD 2022) (v2.0)	Risankizumab	Crohns Disease (CD)	1	1	100.0
+2370229	BCL2-US-00334-FM	P_M20-356 (ReVenG) Study Fact Sheet - For Potential Investigators and TAP (v6.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	1	1	100.0
+2537803	RISN-US-00355-FM	ECCO 2023_RZB-CD Clinical Response Over 24 Weeks (v1.0)	Risankizumab	Crohns Disease (CD)	1	1	100.0
+2661343	BCL2-US-00347-FM	P_Ven CLL and AML Clinical Overview and Dosing Deck MOSL (v2.0)	Venclexta	Acute Myeloid Leukemia (AML), Chronic Lymphocytic Leukemia (CLL)	49	30	61.224489795918366
+2776576	BCL2-US-00353-FM	P_VialeT (M19-063) Part One Data Updates 2023 For Investigators Only (v1.0)	Venclexta	Acute Myeloid Leukemia (AML)	14	12	85.71428571428571
+2827556	JAKa-US-00565-FM	P-UPA Cross Indication Safety IMA Module (v2.0)	Upadacitinib	Ankylosing Spondylitis (AS), Atopic Dermatitis (AD), Crohns Disease (CD), Non-radiographic Axial Spondyloarthropathy (nrAxSpA), Psoriatic Arthritis (PsA), Rheumatoid Arthritis (RA), Ulcerative Colitis (UC)	6	2	33.33333333333333
+2828488	BCL2-US-00355-FM	R_Viale T (M 19-063) Part One Data Updates 2023 (v1.0)	Venclexta	Acute Myeloid Leukemia (AML)	14	12	85.71428571428571
+2875563	EPCO-US-00064-FM	Epcoritamab US Prescribing Information - P (v3.0)	Epcoritamab	DLBCL, Follicular Lymphoma	119	2	1.680672268907563
+2883037	EPCO-US-00067-FM	R - Epcoritamab Frequently Asked Questions (v5.0)	Epcoritamab	DLBCL	50	4	8.0
+2883038	EPCO-US-00068-FM	CRS Management Pocket Guide - R (v3.0)	Epcoritamab	DLBCL	2	1	50.0
+2883039	EPCO-US-00069-FM	R - ICANS Management Pocket Guide (v2.0)	Epcoritamab	DLBCL	2	1	50.0
+2883041	EPCO-US-00071-FM	R-Epcoritamab Dosing and Administration (Syringe to Syringe) Pocket Guide DLBCL/HGBL (v2.0)	Epcoritamab	DLBCL	2	1	50.0
+2883043	EPCO-US-00073-FM	R-Epcoritamab Pharmacy Manual DLBCL/HGBL (Syringe to Syringe) (v1.0)	Epcoritamab	DLBCL	2	1	50.0
+2883423	JAKa-US-00598-FM	ECCO23_UPA CD Endo Outcomes (v1.0)	Upadacitinib	Crohns Disease (CD)	11	4	36.36363636363637
+2883424	JAKa-US-00599-FM	ECCO23_UPA-CD Steroid-free Endpoints (v1.0)	Upadacitinib	Crohns Disease (CD)	8	4	50.0
+2883425	JAKa-US-00600-FM	ECCO23_UPA CD Rapid Response (v1.0)	Upadacitinib	Crohns Disease (CD)	8	3	37.5
+2883426	JAKa-US-00601-FM	ECCO23_UPA-CD Prior Biologics Failed (v1.0)	Upadacitinib	Crohns Disease (CD)	12	4	33.33333333333333
+2904298	EPCO-US-00076-FM	R - Epcoritamab Frequently Asked Questions (FAQ) (v11.0)	Epcoritamab	DLBCL	44	4	9.090909090909092
+2939222	JAKa-US-00634-FM	R_UPA CD IMA_For GMI Use Only (v2.0)	Upadacitinib	Crohns Disease (CD)	136	29	21.323529411764707
+3183905	EPCO-US-00086-FM	P-M20-621 MSL STV Deck (v3.0)	Epcoritamab	DLBCL	62	21	33.87096774193548
+3221347	BCL2-US-00365-FM	P_Venetoclax CLL Scientific Value Story_MOSL (v3.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	62	14	22.58064516129032
+3297259	BCL2-US-00372-FM	R_Venetoclax Medicaid Clinical Summary_MOSL (v1.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	2	1	50.0
+3314859	BCL2-US-00373-FM	R_Sequencing with Venetoclax in CLL (v10.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	60	48	80.0
+3314863	BCL2-US-00374-FM	R_MURANO Reactive (v1.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	113	96	84.95575221238938
+3314866	BCL2-US-00375-FM	R_CLL14 Reactive (v3.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	64	38	59.375
+3314891	BCL2-US-00376-FM	R_RWE Library for Venetoclax in CLL (v5.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	53	49	92.45283018867924
+3358513	BCL2-US-00381-FM	P_Diving Deep into FTD and Time Off Treatment_Full APP (v5.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	55	14	25.454545454545453
+3386915	BCL2-US-00383-FM	P_Venetoclax CLL MOSL TCC BIM VA Summary (v3.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	7	1	14.285714285714285
+3389777	RISN-US-00404-FM	P_RZB CD SEQUENCE Flat Deck (v2.0)	Risankizumab	Crohns Disease (CD)	29	11	37.93103448275862
+3395985	RISN-US-00406-FM	P_SEQUENCE MOSL (v2.0)	Risankizumab	Crohns Disease (CD)	44	11	25.0
+3432272	BCL2-US-00386-FM	P_Venetoclax Dosing and Dispensing Guide (v4.0)	Venclexta	Acute Myeloid Leukemia (AML), Chronic Lymphocytic Leukemia (CLL)	10	6	60.0
+3451650	BCL2-US-00387-FM	ReVenG (M20-356) Pub Visual (v2.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	4	1	25.0
+3509122	BCL2-US-00389-FM	P_CLL Journal Club Deck (v1.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	21	1	4.761904761904762
+3533636	JAKa-US-00666-FM	UEGW 2023_UPA-CD Durability (v1.0)	Upadacitinib	Crohns Disease (CD)	11	5	45.45454545454545
+3533649	JAKa-US-00667-FM	UEGW 2023_UPA-CD Early Responder Outcomes (v1.0)	Upadacitinib	Crohns Disease (CD)	9	3	33.33333333333333
+3533754	JAKa-US-00670-FM	UEGW 2023_UPA-CD EIMs (v1.0)	Upadacitinib	Crohns Disease (CD)	1	1	100.0
+3535304	BCL2-US-00390-FM	P_Diving Deep into FTD and Time Off Treatment_CLL14 MD (v2.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	27	5	18.51851851851852
+3535390	BCL2-US-00391-FM	P_Diving Deep into FTD and Time Off Treatment_CLL14 APP (v3.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	32	12	37.5
+3535454	BCL2-US-00392-FM	P_Diving Deep into FTD and Time Off Treatment_MURANO MD (v2.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	23	8	34.78260869565217
+3535552	BCL2-US-00393-FM	P_Diving Deep into FTD and Time Off Treatment_MURANO APP (v3.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	29	13	44.827586206896555
+3593862	ABBV-US-01035-FM	P_Future of Immunology (v2.0)	AbbVie	Ankylosing Spondylitis (AS), Atopic Dermatitis (AD), Crohns Disease (CD), Immunology Cross-TA, Inflammatory Bowel Disease (IBD), Non-radiographic Axial Spondyloarthropathy (nrAxSpA), Pediatric Crohn Disease (Ped CD), Pediatric Psoriasis (Ped Ps), Pediatric Ulcerative Colitis (Ped UC), Psoriasis (Ps), Psoriatic Arthritis (PsA), Rheumatoid Arthritis (RA), Spondyloarthropathy (SpA), Ulcerative Colitis (UC)	36	26	72.22222222222221
+3660341	EPCO-US-00098-FM	P - M23-362 MSL STV Deck Protocol v3.0 (v2.0)	Epcoritamab	DLBCL, Follicular Lymphoma	92	38	41.30434782608695
+3671724	BCL2-US-00399-FM	AML/CLL_Dosing and Dispensing Guide_LeaveBehind (v3.0)	Venclexta	Acute Myeloid Leukemia (AML), Chronic Lymphocytic Leukemia (CLL)	2	2	100.0
+3765913	EPCO-US-00106-FM	P-M22-003 STV Deck v2.0 (v2.0)	Epcoritamab	Follicular Lymphoma	55	25	45.45454545454545
+4016899	RISN-US-00472-FM	ECCO 2024 RZB-CD SEQUENCE Clinical Outcomes (v1.0)	Risankizumab	Crohns Disease (CD)	7	3	42.857142857142854
+4016900	RISN-US-00473-FM	ECCO 2024 RZB-CD SEQUENCE Disease Location (v1.0)	Risankizumab	Crohns Disease (CD)	8	2	25.0
+4016902	RISN-US-00474-FM	ECCO 2024 RZB-CD SEQUENCE Endoscopic Outcomes (v1.0)	Risankizumab	Crohns Disease (CD)	7	2	28.57142857142857
+4016903	RISN-US-00475-FM	ECCO 2024 RZB-CD SEQUENCE Steroid Sparing Effects (v1.0)	Risankizumab	Crohns Disease (CD)	8	1	12.5
+4016906	JAKa-US-00704-FM	ECCO 2024 UPA-CD U-ENDURE LTE (v1.0)	Upadacitinib	Crohns Disease (CD)	13	5	38.46153846153847
+4016914	JAKa-US-00706-FM	ECCO 2024 UPA-CD Improvements in SES-CD (v1.0)	Upadacitinib	Crohns Disease (CD)	9	1	11.11111111111111
+4122246	BCL2-US-00407-FM	P_M24-287_Ven_Initiation_Study_Fact_Sheet_for potential PIs (v3.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	1	1	100.0
+4152845	BCL2-US-00409-FM	P_CLL Interactive Medical Aid (IMA) (v3.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	98	48	48.97959183673469
+4336109	RISN-US-00495-FM	RZB CD SEQUENCE Data Visualization IMA (v1.0)	Risankizumab	Crohns Disease (CD)	21	10	47.61904761904761
+4351915	RISN-US-00502-FM	R_RISE-CD M16-194 Clinical Trial Overview (v1.0)	Risankizumab	Crohns Disease (CD)	27	1	3.7037037037037033
+4354070	RISN-US-00503-FM	DDW24_RZB-CD SEQUENCE Biologic Remission_OP763 (v1.0)	Risankizumab	Crohns Disease (CD)	10	3	30.0
+4433787	EPCO-US-00117-FM	EPCORE Clinical Development Brochure (Dec 2024) (v3.0)	Epcoritamab	Chronic Lymphocytic Leukemia (CLL), DLBCL, Follicular Lymphoma, Non-Hodgkin's Lymphoma (NHL)	15	15	100.0
+4458360	EPCO-US-00119-FM	R - ASCO/EHA Epcoritamab Priority Data Presentations (v6.0)	Epcoritamab	Chronic Lymphocytic Leukemia (CLL), DLBCL, Follicular Lymphoma, Non-Hodgkin's Lymphoma (NHL)	199	45	22.613065326633166
+4479120	BCL2-US-00419-FM	VENETIAN (M24-287) STV Deck 2024 (v3.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	52	52	100.0
+4501696	EPCO-US-00120-FM	P - 31-Month Follow-Up with Epcoritamab in 3L+ DLBCL/HGBL (v3.0)	Epcoritamab	DLBCL	18	3	16.666666666666664
+4517164	BCMA-US-00028-FM	ASCO 2024 Hematology Compendium (v1.0)	AbbVie, Epcoritamab, Etentamig, Imbruvica, Venclexta	Acute Myeloid Leukemia (AML), Chronic Lymphocytic Leukemia (CLL), DLBCL, Follicular Lymphoma, Mantle Cell Lymphoma, Multiple Myeloma (MM)	187	9	4.81283422459893
+4583117	BCL2-US-00421-FM	P_Venetoclax Dosing Leave Behind_CLL (v1.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	6	3	50.0
+4598030	BCL2-US-00422-FM	P_Outpatient Short Story Deck (v1.0)	Venclexta	Acute Myeloid Leukemia (AML)	16	15	93.75
+4598039	BCMA-US-00031-FM	2024 EHA Congress Compendia (v1.0)	Epcoritamab, Etentamig, Venclexta	Acute Myeloid Leukemia (AML), Chronic Lymphocytic Leukemia (CLL), DLBCL, Follicular Lymphoma, Mantle Cell Lymphoma, Multiple Myeloma (MM), Non-Hodgkin's Lymphoma (NHL)	323	10	3.0959752321981426
+4626613	BCMA-US-00033-FM	R_ASCO-EHA 2024 MSL Reactive_ABBV Summaries_AML, MDS, CLL, MCL, MM, MF, Solids (v1.0)	Etentamig, Venclexta	Acute Myeloid Leukemia (AML), Chronic Lymphocytic Leukemia (CLL), Mantle Cell Lymphoma, Multiple Myeloma (MM), Myelodysplastic Syndrome (MDS), Myelofibrosis, Solid Tumor	40	17	42.5
+4627780	EPCO-US-00123-FM	R - Epcoritamab FL CRS Prophylaxis Pocket Guide (v2.0)	Epcoritamab	Follicular Lymphoma	2	2	100.0
+4630204	EPCO-US-00122-FM	R - CRS DLBCL Prophylaxis Pocket Guide (v2.0)	Epcoritamab	DLBCL	2	2	100.0
+4630325	EPCO-US-00124-FM	R - Pharmacy Manual FL (Syringe Dilution Method) (v1.0)	Epcoritamab	Follicular Lymphoma	2	1	50.0
+4630352	EPCO-US-00129-FM	R - Pharmacy Manual FL (empty vial method) (v1.0)	Epcoritamab	Follicular Lymphoma	2	1	50.0
+4631531	EPCO-US-00127-FM	R - Epcoritamab Inservice Medical Deck (v2.0)	Epcoritamab	DLBCL, Follicular Lymphoma	112	15	13.392857142857142
+4631714	EPCO-US-00125-FM	R - Dosing & Administration FL Pocket Guide (Empty Vial Dilution Method) (v2.0)	Epcoritamab	Follicular Lymphoma	2	1	50.0
+4631720	EPCO-US-00126-FM	P - Epcoritamab in 3L+ Follicular Lymphoma (v4.0)	Epcoritamab	Follicular Lymphoma	27	8	29.629629629629626
+4673564	EPCO-US-00130-FM	R - Follicular Lymphoma Manuscript Slide Deck - Linton Lancet Haematol 2024 (v2.0)	Epcoritamab	Follicular Lymphoma	40	16	40.0
+4722758	EPCO-US-00131-FM	R - MSL Talking Points on Epcoritamab Costs, Economics, & Operationalization (v1.0)	Epcoritamab	DLBCL, Follicular Lymphoma	5	1	20.0
+4745604	JAKa-US-00737-FM	AIBD_2023_UPA-CD_Number_of_Surgeries_Pst7 (v1.0)	Upadacitinib	Crohns Disease (CD)	1	1	100.0
+476081	BCL2-US-00139-FM	P_CLL and AML Dosing Guide (v10.0)	Venclexta	Acute Myeloid Leukemia (AML), Chronic Lymphocytic Leukemia (CLL)	26	18	69.23076923076923
+4776985	EPCO-US-00132-FM	P - M23-362 MSL STV Deck Protocol v4 (v2.0)	Epcoritamab	DLBCL, Follicular Lymphoma	88	29	32.95454545454545
+4839734	EPCO-US-00134-FM	P - NHL-2 Epcor+RCHOP ASCO 2023 Poster Presentation - Research Support Tool (v1.0)	Epcoritamab	DLBCL	13	12	92.3076923076923
+4839816	EPCO-US-00135-FM	P - NHL-2 Epcor+R2 ASCO 2023 Poster Presentation - Research Support Tool (v1.0)	Epcoritamab	Follicular Lymphoma	19	18	94.73684210526315
+559106	RISN-US-00061-FM	P_Skyrizi Clinical and Economic Resource_MOSL (v7.0)	Risankizumab	Crohns Disease (CD), Immunology Cross-TA, Psoriasis (Ps), Psoriatic Arthritis (PsA)	159	10	6.289308176100629
+5662214	RISN-US-00546-FM	P_RZB CD SC M23-784 STV_For Investigators Only (v1.0)	Risankizumab	Crohns Disease (CD)	23	5	21.73913043478261
+5742959	EPCO-US-00137-FM	P-Epcoritamab Dosing and Administration (v1.0)	Epcoritamab	DLBCL, Follicular Lymphoma	43	7	16.27906976744186
+5745791	RISN-US-00556-FM	R_RZB UC and CD Experimental Dosing (v1.0)	Risankizumab	Crohns Disease (CD), Ulcerative Colitis (UC)	21	4	19.047619047619047
+576475	BCL2-US-00167-FM	P_AML Disease State Deck (v11.0)	Venclexta	Acute Myeloid Leukemia (AML)	34	30	88.23529411764706
+5767991	BCL2-US-00432-FM	R_GLOW Phase 3 Study (v1.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	19	6	31.57894736842105
+5892612	RISN-US-00570-FM	UEGW 2024 RZB-CD SEQUENCE SES-CD Improvements (v1.0)	Risankizumab	Crohns Disease (CD)	1	1	100.0
+5977335	RISN-US-00576-FM	P_Risankizumab Molecular Overview and CD64 Poster Summaries (v1.0)	Risankizumab	Crohns Disease (CD)	31	1	3.225806451612903
+5983597	RISN-US-00577-FM	UEGW_RZB-CD ITT1C Delayed Responders (v1.0)	Risankizumab	Crohns Disease (CD)	10	1	10.0
+5997109	EPCO-US-00138-FM	R - ASH 2024 Epcoritamab Key Highlights One-Sliders (v2.0)	Epcoritamab	Chronic Lymphocytic Leukemia (CLL), DLBCL, Follicular Lymphoma	14	4	28.57142857142857
+6105892	EPCO-US-00139-FM	ASH 2024 Epcoritamab Reactive FAQs (v1.0)	Epcoritamab	Chronic Lymphocytic Leukemia (CLL), DLBCL, Follicular Lymphoma	24	2	8.333333333333332
+6162459	EPCO-US-00140-FM	P - 37-Month Follow-Up with Epcoritamab in 3L+ DLBCL/HGBL (v1.0)	Epcoritamab	DLBCL	19	7	36.84210526315789
+6206164	B453-US-00003-FM	2024 ASH Congress Compendia (v1.0)	ABBV-453, AbbVie, Epcoritamab, Etentamig, Imbruvica, Pivekimab, Venclexta	Acute Lymphoblastic Leukemia (ALL), Acute Myeloid Leukemia (AML), Chronic Lymphocytic Leukemia (CLL), DLBCL, Follicular Lymphoma, Multiple Myeloma (MM), Myelodysplastic Syndrome (MDS)	405	11	2.7160493827160495
+629571	BCL2-US-00176-FM	P_CLL Disease State (v5.0)	Venclexta	Chronic Lymphocytic Leukemia (CLL)	39	8	20.51282051282051
+6337931	BCMA-US-00042-FM	R-ASH 2024_Ven-383-Post-Con Summaries_2024 (v1.0)	Etentamig, Venclexta	Acute Myeloid Leukemia (AML), Chronic Lymphocytic Leukemia (CLL), Mantle Cell Lymphoma, Multiple Myeloma (MM)	35	12	34.285714285714285
+6429290	EPCO-US-00141-FM	P_M20-638 and M22-003 research support tool (NHL2 arm2) (v1.0)	Epcoritamab	Follicular Lymphoma	16	4	25.0
+6440906	BCL2-US-00442-FM	R_Reduced Ven Dosing and Ven Discontinuation FAQ (v1.0)	Venclexta	Acute Myeloid Leukemia (AML)	10	1	10.0
+6478358	BCL2-US-00443-FM	R_NCCN Update 1.2025 FAQ (v1.0)	Venclexta	Acute Myeloid Leukemia (AML)	7	1	14.285714285714285
+6479368	BCL2-US-00444-FM	R_ASH 2024 US V+X Studies (v1.0)	Venclexta	Acute Myeloid Leukemia (AML)	85	15	17.647058823529413
+6484230	BCL2-US-00445-FM	R_Timing of Response with VEN+HMA (v1.0)	Venclexta	Acute Myeloid Leukemia (AML)	5	5	100.0
+6511652	EPCO-US-00142-FM	M22-003 STV Deck Protocol V4 (v1.0)	Epcoritamab	Follicular Lymphoma	65	52	80.0
+753356	BCL2-US-00199-FM	R_Venetoclax MA MDS Reactive Library (v14.0)	Venclexta	Acute Myeloid Leukemia (AML)	165	40	24.242424242424242
+842290	BCL2-US-00219-FM	R_VIALE-A  FAQ (v13.0)	Venclexta	Acute Myeloid Leukemia (AML)	175	164	93.71428571428572
+981258	BCL2-US-00251-FM	Indication and Safety Overview Slides (AML) Nov 2020 (v3.0)	Venclexta	Acute Myeloid Leukemia (AML), Chronic Lymphocytic Leukemia (CLL)	1	1	100.0
