@@ -402,6 +402,47 @@ st.title("Document Overlap Analysis Dashboard")
  
 st.sidebar.title("About")
 st.sidebar.info("This dashboard visualizes document overlap analysis and similarity scores for pharmaceutical research documents.")
+
+# Project Overview
+st.sidebar.subheader("Project Overview")
+st.sidebar.write("""
+This dashboard analyzes document overlap and similarity across different disease states in pharmaceutical research, focusing on:
+- Document reuse patterns
+- Similarity scores between documents
+- Disease state-specific analysis
+""")
+
+# Time Frame and Data Source
+st.sidebar.subheader("Data Information")
+st.sidebar.write("""
+**Time Frame:**
+- Global Documents: 2023-07-09 to 2025-03-01
+- US Affiliate Documents: 2023-07-09 to 2025-03-01
+
+**Data Source:**
+- Global Documents: Approved for Use, Expired
+- US Affiliate Documents: Approved for Use
+""")
+
+# Disease States
+st.sidebar.subheader("Disease States")
+st.sidebar.write("""
+**Oncology:**
+- Chronic Lymphocytic Leukemia (CLL) with Venetoclax
+- Acute Myeloid Leukemia (AML) with Venetoclax
+- Diffuse Large B-cell Lymphoma (DLBCL) and Follicular Lymphoma (FL) with Epcoritamab
+""")
+
+# Impact and Usage
+st.sidebar.subheader("Impact & Usage")
+st.sidebar.write("""
+This dashboard serves as a valuable tool for:
+- Analyzing document reuse patterns across different disease states
+- Identifying potential areas of research overlap
+- Supporting strategic decision-making in pharmaceutical research
+- Facilitating efficient resource allocation
+- Ensuring compliance and proper documentation practices
+""")
  
 st.sidebar.subheader("Methodology")
 st.sidebar.write("""
