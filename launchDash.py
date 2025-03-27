@@ -186,103 +186,109 @@ def plot_overlap_pie_charts(df):
  
 def plot_slide_reuse_comparison():
     """
-    Reads global and local slide data, computes slide reuse (Overlap vs No Overlap) for each disease state,
-    and creates a grouped stacked bar chart. For each disease state, two bars are plotted side by side:
-    one for Global slides (left) and one for Local slides (right).
- 
-    Global slides:
-      - Overlap: slides present in both datasets (merge indicator 'both')
-      - No Overlap: slides present only in the global set (merge indicator 'left_only')
- 
-    Local slides:
-      - Overlap: slides present in both datasets (merge indicator 'both')
-      - No Overlap: slides present only in the local set (merge indicator 'right_only')
+    Creates slide reuse comparisons for each disease state (AML, CLL, DLBCL)
+    showing global and local content on the same plot
     """
-    import pandas as pd
-    import matplotlib.pyplot as plt
-    import numpy as np
-    import streamlit as st
-    from matplotlib.patches import Patch
- 
-    # Read the tab-delimited CSV files
-    global_slides = pd.read_csv('output/global_documents.csv', sep='\t')
-    local_slides = pd.read_csv('output/local_documents.csv', sep='\t')
- 
-    # Rename columns for consistency
-    global_slides.rename(columns={'global_document': 'slide_id'}, inplace=True)
-    local_slides.rename(columns={'local_document': 'slide_id'}, inplace=True)
- 
-    # Merge datasets on common columns with an indicator for merge status
-    merged_slides = pd.merge(
-        global_slides,
-        local_slides,
-        on=['slide_id', 'document_name', 'document_number', 'disease_state'],
-        how='outer',
-        indicator=True
-    )
- 
-    # Abbreviate disease_state to the first 3 characters for brevity
-    merged_slides['disease_state'] = merged_slides['disease_state'].str[:3]
- 
-    # Group by disease_state and merge indicator
-    grouped = merged_slides.groupby(['disease_state', '_merge']).size().unstack(fill_value=0)
- 
-    # For Global Slides:
-    # Overlap: slides present in both datasets (indicator == 'both')
-    # No Overlap: slides present only in the global set (indicator == 'left_only')
-    global_data = pd.DataFrame({
-        "Overlap": grouped.get("both", 0),
-        "No Overlap": grouped.get("left_only", 0)
-    })
- 
-    # For Local Slides:
-    # Overlap: slides present in both datasets (indicator == 'both')
-    # No Overlap: slides present only in the local set (indicator == 'right_only')
-    local_data = pd.DataFrame({
-        "Overlap": grouped.get("both", 0),
-        "No Overlap": grouped.get("right_only", 0)
-    })
- 
-    # Ensure both DataFrames have the same disease states
-    disease_states = sorted(set(global_data.index).union(set(local_data.index)))
-    global_data = global_data.reindex(disease_states, fill_value=0)
-    local_data = local_data.reindex(disease_states, fill_value=0)
- 
-    # Set up the bar positions
-    n = len(disease_states)
-    x = np.arange(n)
-    width = 0.35
- 
-    fig, ax = plt.subplots(figsize=(12, 6))
- 
-    # Global stacked bars (positioned at x - width/2)
-    global_no = global_data["No Overlap"].values
-    global_overlap = global_data["Overlap"].values
-    ax.bar(x - width/2, global_no, width, color='#A9A9A9')
-    ax.bar(x - width/2, global_overlap, width, bottom=global_no, color='#4682B4')
- 
-    # Local stacked bars (positioned at x + width/2)
-    local_no = local_data["No Overlap"].values
-    local_overlap = local_data["Overlap"].values
-    ax.bar(x + width/2, local_no, width, color='#A9A9A9')
-    ax.bar(x + width/2, local_overlap, width, bottom=local_no, color='#4682B4')
- 
-    # Customize the axes and title
-    ax.set_xlabel("Disease State (Abbrev.)")
-    ax.set_ylabel("Count of Slides")
-    ax.set_title("Slide Reuse Comparison by Disease State (Left: Global, Right: Local)")
-    ax.set_xticks(x)
-    ax.set_xticklabels(disease_states)
- 
-    # Create a custom legend for the overlap status
-    legend_elements = [
-        Patch(facecolor='#4682B4', label='Overlap'),
-        Patch(facecolor='#A9A9A9', label='No Overlap')
-    ]
-    ax.legend(handles=legend_elements, title="Slide Status")
- 
-    plt.tight_layout()
-    st.pyplot(fig)
+    # Define the data based on provided counts and calculate overlaps
+    data = {
+        'AML': {
+            'global_total': 40, 'local_total': 21,
+            'overlap': 21,  # All local slides are overlapping with global
+            'global_overlap_pct': round((21/40) * 100),  # 52.5%
+            'local_overlap_pct': round((21/21) * 100)  # 100%
+        },
+        'CLL': {
+            'global_total': 40, 'local_total': 26,
+            'overlap': 26,  # All local slides are overlapping with global
+            'global_overlap_pct': round((26/40) * 100),  # 65%
+            'local_overlap_pct': round((26/26) * 100)  # 100%
+        },
+        'DLBCL': {
+            'global_total': 19, 'local_total': 11,
+            'overlap': 11,  # All local slides are overlapping with global
+            'global_overlap_pct': round((11/19) * 100),  # 58%
+            'local_overlap_pct': round((11/11) * 100)  # 100%
+        }
+    }
+
+    # Colors
+    overlap_color = '#4CAF50'  # Green
+    no_overlap_color = '#9E9E9E'  # Grey
+
+    for disease in data.keys():
+        # Create single figure for each disease state with increased size
+        fig, ax = plt.subplots(figsize=(20, 6))  # Increased height from 4 to 6
+        
+        # Get metrics for current disease
+        metrics = data[disease]
+        
+        # Get overlap percentages
+        global_overlap_pct = metrics['global_overlap_pct']
+        global_no_overlap_pct = 100 - global_overlap_pct
+        
+        local_overlap_pct = metrics['local_overlap_pct']
+        local_no_overlap_pct = 100 - local_overlap_pct
+
+        # Plot Global Content (top bar)
+        if global_no_overlap_pct > global_overlap_pct:
+            ax.barh(1, global_no_overlap_pct, color=no_overlap_color)
+            ax.barh(1, global_overlap_pct, left=global_no_overlap_pct, color=overlap_color)
+            # Add percentage labels with increased font size
+            ax.text(global_no_overlap_pct/2, 1, f"{global_no_overlap_pct}%", va='center', ha='center', color='white', fontweight='bold', fontsize=12)
+            ax.text(global_no_overlap_pct + global_overlap_pct/2, 1, f"{global_overlap_pct}%", va='center', ha='center', color='white', fontweight='bold', fontsize=12)
+        else:
+            ax.barh(1, global_overlap_pct, color=overlap_color)
+            ax.barh(1, global_no_overlap_pct, left=global_overlap_pct, color=no_overlap_color)
+            # Add percentage labels with increased font size
+            ax.text(global_overlap_pct/2, 1, f"{global_overlap_pct}%", va='center', ha='center', color='white', fontweight='bold', fontsize=12)
+            ax.text(global_overlap_pct + global_no_overlap_pct/2, 1, f"{global_no_overlap_pct}%", va='center', ha='center', color='white', fontweight='bold', fontsize=12)
+
+        # Plot US Content (bottom bar)
+        if local_no_overlap_pct > local_overlap_pct:
+            ax.barh(0, local_no_overlap_pct, color=no_overlap_color)
+            ax.barh(0, local_overlap_pct, left=local_no_overlap_pct, color=overlap_color)
+            # Add percentage labels with increased font size
+            ax.text(local_no_overlap_pct/2, 0, f"{local_no_overlap_pct}%", va='center', ha='center', color='white', fontweight='bold', fontsize=12)
+            ax.text(local_no_overlap_pct + local_overlap_pct/2, 0, f"{local_overlap_pct}%", va='center', ha='center', color='white', fontweight='bold', fontsize=12)
+        else:
+            ax.barh(0, local_overlap_pct, color=overlap_color)
+            ax.barh(0, local_no_overlap_pct, left=local_overlap_pct, color=no_overlap_color)
+            # Add percentage labels with increased font size
+            ax.text(local_overlap_pct/2, 0, f"{local_overlap_pct}%", va='center', ha='center', color='white', fontweight='bold', fontsize=12)
+            ax.text(local_overlap_pct + local_no_overlap_pct/2, 0, f"{local_no_overlap_pct}%", va='center', ha='center', color='white', fontweight='bold', fontsize=12)
+
+        # Add n values with increased font size
+        ax.text(-0.02, 1, f"Global (n = {metrics['global_total']})", va='center', ha='right', transform=ax.get_yaxis_transform(), fontsize=12)
+        ax.text(-0.02, 0, f"US (n = {metrics['local_total']})", va='center', ha='right', transform=ax.get_yaxis_transform(), fontsize=12)
+
+        # Set up axes with more spacing
+        ax.set_yticks([0, 1])
+        ax.set_yticklabels([])  # We're using custom labels
+        ax.set_xlim(0, 100)
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        
+        # Add more padding to the plot
+        ax.margins(x=0.1)  # Add horizontal margins
+        ax.margins(y=0.2)  # Add vertical margins
+
+        # Set title and labels with increased padding and font size
+        ax.set_title(f'{disease} Content Overlap', pad=30, fontsize=16, fontweight='bold')
+        ax.set_xlabel('Percentage of Slides', labelpad=15, fontsize=12)
+
+        # Add legend with more padding and increased font size, positioned in the right corner
+        ax.legend(['No overlap', 'Overlap'], 
+                 loc='center left', 
+                 bbox_to_anchor=(1, 0.5),  # Position in the right center
+                 ncol=1,  # Single column for better fit
+                 fontsize=12)
+
+        # Adjust layout with more padding
+        plt.subplots_adjust(top=0.85, bottom=0.15, left=0.1, right=0.85)  # Adjusted right margin to make room for legend
+        plt.tight_layout(pad=5.0)
+        
+        # Display the plot
+        st.pyplot(fig)    
  
 @st.cache_data
 def load_and_process_data(global_csv_path, local_csv_path):
@@ -394,7 +400,7 @@ def plot_page_overlap(df):
 
     ax1.set_yticks(y_pos)
     ax1.set_yticklabels([])  # Remove default y-labels since we're adding them manually
-    ax1.set_title('Global Content', pad=20, fontsize=14, fontweight='bold')
+    ax1.set_title('Intern.', pad=20, fontsize=14, fontweight='bold')
     ax1.set_xlabel('% Global slides')
 
     # US Content Plot
@@ -444,7 +450,7 @@ def plot_page_overlap(df):
 # Main Streamlit App
 # ----------------------------------
  
-st.title("Document Overlap Analysis Dashboard")
+st.title("GLASS Dashboard")
  
 st.sidebar.title("About")
 st.sidebar.info("This dashboard visualizes document overlap analysis and similarity scores for pharmaceutical research documents.")
