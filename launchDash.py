@@ -127,65 +127,7 @@ def plot_local_document_overlap(df, column='local_outlier_class'):
     ax.set_title("Local Document Overlap Categories by Disease State")
     ax.legend(title="Overlap Category")
     st.pyplot(fig)
- 
-def plot_slides_disease_state():
-    # Read the tab-delimited files
-    global_slides = pd.read_csv('output/global_documents.csv', sep='\t')
-    local_slides = pd.read_csv('output/local_documents.csv', sep='\t')
 
-    # Rename columns for consistency
-    global_slides.rename(columns={'global_document': 'slide_id'}, inplace=True)
-    local_slides.rename(columns={'local_document': 'slide_id'}, inplace=True)
-
-    # Function to extract abbreviation from disease state
-    def extract_abbreviation(text):
-        if pd.isna(text):
-            return None
-        match = re.search(r'\((.*?)\)', str(text))
-        if match:
-            return match.group(1)
-        return text
-
-    # Extract abbreviations from disease states
-    global_slides['disease_state'] = global_slides['disease_state'].apply(extract_abbreviation)
-    local_slides['disease_state'] = local_slides['disease_state'].apply(extract_abbreviation)
-
-    # Define the 4 disease states to show
-    disease_states = ['AML', 'CLL', 'DLBCL', 'FL']
-
-    # Filter for only the specified disease states
-    global_slides = global_slides[global_slides['disease_state'].isin(disease_states)]
-    local_slides = local_slides[local_slides['disease_state'].isin(disease_states)]
-
-    # Check if we have any data after filtering
-    if global_slides.empty and local_slides.empty:
-        st.warning("No data available for the specified disease states (AML, CLL, DLBCL, FL).")
-        return
-
-    # Count slides by disease state
-    global_counts = global_slides.groupby('disease_state').size().reset_index(name='count')
-    local_counts = local_slides.groupby('disease_state').size().reset_index(name='count')
-
-    # Plot Global Slides chart
-    fig_global, ax_global = plt.subplots(figsize=(12, 6))
-    global_counts.plot(x='disease_state', y='count', kind='bar', ax=ax_global, color='#4682B4')
-    ax_global.set_xlabel('Disease State')
-    ax_global.set_ylabel('Count of Global Slides')
-    ax_global.set_title('Global Slides per Disease State')
-    ax_global.set_xticklabels(global_counts['disease_state'], rotation=45, ha='right')
-    plt.tight_layout()
-    st.pyplot(fig_global)
-
-    # Plot Local Slides chart
-    fig_local, ax_local = plt.subplots(figsize=(12, 6))
-    local_counts.plot(x='disease_state', y='count', kind='bar', ax=ax_local, color='#4682B4')
-    ax_local.set_xlabel('Disease State')
-    ax_local.set_ylabel('Count of Local Slides')
-    ax_local.set_title('Local Slides per Disease State')
-    ax_local.set_xticklabels(local_counts['disease_state'], rotation=45, ha='right')
-    plt.tight_layout()
-    st.pyplot(fig_local)
- 
 def plot_overlap_pie_charts(df):
     """
     For each disease state in the dataframe, this function creates a pair of pie charts—
@@ -263,8 +205,8 @@ def plot_slide_reuse_comparison():
     from matplotlib.patches import Patch
  
     # Read the tab-delimited CSV files
-    global_slides = pd.read_csv('output/global_slides.csv', sep='\t')
-    local_slides = pd.read_csv('output/local_slides.csv', sep='\t')
+    global_slides = pd.read_csv('output/global_documents.csv', sep='\t')
+    local_slides = pd.read_csv('output/local_documents.csv', sep='\t')
  
     # Rename columns for consistency
     global_slides.rename(columns={'global_document': 'slide_id'}, inplace=True)
@@ -393,7 +335,111 @@ def load_and_process_data(global_csv_path, local_csv_path):
     outliers_detected = detect_outliers(merged_docs)
    
     return merged_docs, outliers_detected
- 
+    
+def plot_page_overlap(df):
+    """
+    Plots overlap analysis using page counts for both local and global documents
+    Creates horizontal stacked bar charts showing overlap vs no overlap percentages
+    """
+    # Calculate metrics for each disease state
+    metrics = df.groupby('disease_state').agg({
+        'num_pages_global': 'sum',
+        'unique_global_page_count': 'sum',
+        'num_pages_local': 'sum',
+        'unique_local_page_count': 'sum'
+    }).reset_index()
+    
+    # Calculate overlap and no overlap for global
+    metrics['global_overlap'] = (metrics['num_pages_global'] - metrics['unique_global_page_count']) / metrics['num_pages_global'] * 100
+    metrics['global_no_overlap'] = 100 - metrics['global_overlap']
+    
+    # Calculate overlap and no overlap for local
+    metrics['local_overlap'] = (metrics['num_pages_local'] - metrics['unique_local_page_count']) / metrics['num_pages_local'] * 100
+    metrics['local_no_overlap'] = 100 - metrics['local_overlap']
+
+    # Colors
+    overlap_color = '#4CAF50'  # Green
+    no_overlap_color = '#9E9E9E'  # Grey
+
+    # Create figure with two subplots side by side
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 8))
+
+    # Global Content Plot
+    y_pos = range(len(metrics))
+    
+    # Determine order based on larger percentage
+    for i, (no_overlap, overlap, total, state) in enumerate(zip(
+        metrics['global_no_overlap'], 
+        metrics['global_overlap'],
+        metrics['num_pages_global'],
+        metrics['disease_state']
+    )):
+        # Plot larger percentage first
+        if no_overlap > overlap:
+            ax1.barh(i, no_overlap, color=no_overlap_color)
+            ax1.barh(i, overlap, left=no_overlap, color=overlap_color)
+            # Add percentage labels
+            ax1.text(no_overlap/2, i, f"{no_overlap:.0f}%", va='center', ha='center', color='white', fontweight='bold')
+            ax1.text(no_overlap + overlap/2, i, f"{overlap:.0f}%", va='center', ha='center', color='white', fontweight='bold')
+        else:
+            ax1.barh(i, overlap, color=overlap_color)
+            ax1.barh(i, no_overlap, left=overlap, color=no_overlap_color)
+            # Add percentage labels
+            ax1.text(overlap/2, i, f"{overlap:.0f}%", va='center', ha='center', color='white', fontweight='bold')
+            ax1.text(overlap + no_overlap/2, i, f"{no_overlap:.0f}%", va='center', ha='center', color='white', fontweight='bold')
+        
+        # Add disease state and n value
+        ax1.text(-0.02, i, state, va='bottom', ha='right', transform=ax1.get_yaxis_transform())
+        ax1.text(-0.02, i-0.25, f"n = {int(total)}", va='top', ha='right', transform=ax1.get_yaxis_transform())
+
+    ax1.set_yticks(y_pos)
+    ax1.set_yticklabels([])  # Remove default y-labels since we're adding them manually
+    ax1.set_title('Global Content', pad=20, fontsize=14, fontweight='bold')
+    ax1.set_xlabel('% Global slides')
+
+    # US Content Plot
+    for i, (no_overlap, overlap, total, state) in enumerate(zip(
+        metrics['local_no_overlap'], 
+        metrics['local_overlap'],
+        metrics['num_pages_local'],
+        metrics['disease_state']
+    )):
+        # Plot larger percentage first
+        if no_overlap > overlap:
+            ax2.barh(i, no_overlap, color=no_overlap_color)
+            ax2.barh(i, overlap, left=no_overlap, color=overlap_color)
+            # Add percentage labels
+            ax2.text(no_overlap/2, i, f"{no_overlap:.0f}%", va='center', ha='center', color='white', fontweight='bold')
+            ax2.text(no_overlap + overlap/2, i, f"{overlap:.0f}%", va='center', ha='center', color='white', fontweight='bold')
+        else:
+            ax2.barh(i, overlap, color=overlap_color)
+            ax2.barh(i, no_overlap, left=overlap, color=no_overlap_color)
+            # Add percentage labels
+            ax2.text(overlap/2, i, f"{overlap:.0f}%", va='center', ha='center', color='white', fontweight='bold')
+            ax2.text(overlap + no_overlap/2, i, f"{no_overlap:.0f}%", va='center', ha='center', color='white', fontweight='bold')
+        
+        # Add disease state and n value
+        ax2.text(-0.02, i, state, va='bottom', ha='right', transform=ax2.get_yaxis_transform())
+        ax2.text(-0.02, i-0.25, f"n = {int(total)}", va='top', ha='right', transform=ax2.get_yaxis_transform())
+
+    ax2.set_yticks(y_pos)
+    ax2.set_yticklabels([])  # Remove default y-labels since we're adding them manually
+    ax2.set_title('US Content', pad=20, fontsize=14, fontweight='bold')
+    ax2.set_xlabel('% US slides')
+
+    # Add legend
+    fig.legend(['No overlap', 'Overlap'], loc='upper center', bbox_to_anchor=(0.5, 1.05), ncol=2)
+
+    # Set x-axis limits to 0-100 for both plots
+    ax1.set_xlim(0, 100)
+    ax2.set_xlim(0, 100)
+
+    # Adjust layout
+    plt.tight_layout()
+    
+    # Display the plot
+    st.pyplot(fig)    
+
 # ----------------------------------
 # Main Streamlit App
 # ----------------------------------
@@ -485,64 +531,13 @@ else:
             st.markdown("Local Document Overlap")
             plot_local_document_overlap(oncology_docs, column='local_outlier_class')
 
-        plot_slides_disease_state()
+        st.subheader("Slide Overlap")
+        plot_page_overlap(oncology_docs)
+
+        st.subheader("Disease State Overlap")
         plot_overlap_pie_charts(oncology_docs)
+
+        st.subheader("Slide Reuse Comparison")
         plot_slide_reuse_comparison()
 
-    with tabs[1]:
-        st.subheader("Derm")
-        # Filter for Derm disease states
-        derm_states = ['PSO', 'AD', 'HS']  # Add actual Derm disease states here
-        derm_docs = merged_docs[merged_docs['disease_state'].isin(derm_states)]
-        derm_outliers = outliers_detected[outliers_detected['disease_state'].isin(derm_states)]
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            st.markdown("Global Document Overlap")
-            plot_stacked_bar(derm_outliers, column='outlier_class')
-        with col2:
-            st.markdown("Local Document Overlap")
-            plot_local_document_overlap(derm_docs, column='local_outlier_class')
-
-        plot_slides_disease_state()
-        plot_overlap_pie_charts(derm_docs)
-        plot_slide_reuse_comparison()
-
-    with tabs[2]:
-        st.subheader("Rheum")
-        # Filter for Rheum disease states
-        rheum_states = ['RA', 'PsA', 'AS']  # Add actual Rheum disease states here
-        rheum_docs = merged_docs[merged_docs['disease_state'].isin(rheum_states)]
-        rheum_outliers = outliers_detected[outliers_detected['disease_state'].isin(rheum_states)]
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            st.markdown("Global Document Overlap")
-            plot_stacked_bar(rheum_outliers, column='outlier_class')
-        with col2:
-            st.markdown("Local Document Overlap")
-            plot_local_document_overlap(rheum_docs, column='local_outlier_class')
-
-        plot_slides_disease_state()
-        plot_overlap_pie_charts(rheum_docs)
-        plot_slide_reuse_comparison()
-
-    with tabs[3]:
-        st.subheader("Gastro")
-        # Filter for Gastro disease states
-        gastro_states = ['UC', 'CD', 'IBD']  # Add actual Gastro disease states here
-        gastro_docs = merged_docs[merged_docs['disease_state'].isin(gastro_states)]
-        gastro_outliers = outliers_detected[outliers_detected['disease_state'].isin(gastro_states)]
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            st.markdown("Global Document Overlap")
-            plot_stacked_bar(gastro_outliers, column='outlier_class')
-        with col2:
-            st.markdown("Local Document Overlap")
-            plot_local_document_overlap(gastro_docs, column='local_outlier_class')
-
-        plot_slides_disease_state()
-        plot_overlap_pie_charts(gastro_docs)
-        plot_slide_reuse_comparison()
-        
+    
