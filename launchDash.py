@@ -263,21 +263,7 @@ def plot_slide_reuse_comparison(df):
         plt.tight_layout(pad=5.0)
         
         # Display the plot
-        st.pyplot(fig)
-
-    # Display summary statistics in a table
-    st.subheader("Slide Counts Summary")
-    summary_data = []
-    for _, row in metrics.iterrows():
-        summary_data.append({
-            'Disease State': row['disease_state'],
-            'Global Slides': int(row['num_pages_global']),
-            'Global Unique Slides': int(row['unique_global_page_count']),
-            'US Slides': int(row['num_pages_local']),
-            'US Unique Slides': int(row['unique_local_page_count'])
-        })
-    summary_df = pd.DataFrame(summary_data)
-    st.dataframe(summary_df)
+        st.pyplot(fig)    
  
 @st.cache_data
 def load_and_process_data(global_csv_path, local_csv_path):
