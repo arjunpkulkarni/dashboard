@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import re
 import requests
+import math  # Add this import at the top of the function
  
 # ----------------------------------
 # Utility Functions
@@ -244,19 +245,19 @@ def plot_slide_reuse_comparison(df):
         # Plot Global Content (top bar) - always show overlap (green) on the left
         ax.barh(1, global_overlap, color=overlap_color)
         ax.barh(1, global_no_overlap, left=global_overlap, color=no_overlap_color)
-        # Add count and percentage labels with increased font size
-        ax.text(global_overlap/2, 1, f"{int(global_overlap)}\n({row['global_overlap_pct']:.3f}%)", 
+        # Add percentage and count labels with increased font size
+        ax.text(global_overlap/2, 1, f"{math.ceil(row['global_overlap_pct'])}%\n({int(global_overlap)})", 
                 va='center', ha='center', color='white', fontweight='bold', fontsize=24)  # Increased from 20
-        ax.text(global_overlap + global_no_overlap/2, 1, f"{int(global_no_overlap)}\n({100-row['global_overlap_pct']:.3f}%)", 
+        ax.text(global_overlap + global_no_overlap/2, 1, f"{math.ceil(100-row['global_overlap_pct'])}%\n({int(global_no_overlap)})", 
                 va='center', ha='center', color='white', fontweight='bold', fontsize=24)  # Increased from 20
 
         # Plot US Content (bottom bar) - always show overlap (green) on the left
         ax.barh(0, local_overlap, color=overlap_color)
         ax.barh(0, local_no_overlap, left=local_overlap, color=no_overlap_color)
-        # Add count and percentage labels with increased font size
-        ax.text(local_overlap/2, 0, f"{int(local_overlap)}\n({row['local_overlap_pct']:.3f}%)", 
+        # Add percentage and count labels with increased font size
+        ax.text(local_overlap/2, 0, f"{math.ceil(row['local_overlap_pct'])}%\n({int(local_overlap)})", 
                 va='center', ha='center', color='white', fontweight='bold', fontsize=24)  # Increased from 20
-        ax.text(local_overlap + local_no_overlap/2, 0, f"{int(local_no_overlap)}\n({100-row['local_overlap_pct']:.3f}%)", 
+        ax.text(local_overlap + local_no_overlap/2, 0, f"{math.ceil(100-row['local_overlap_pct'])}%\n({int(local_no_overlap)})", 
                 va='center', ha='center', color='white', fontweight='bold', fontsize=24)  # Increased from 20
 
         # Add n values with increased font size
@@ -278,7 +279,7 @@ def plot_slide_reuse_comparison(df):
 
         # Set title and labels with increased padding and font size
         ax.set_title(f'{disease} Content Overlap', pad=40, fontsize=30, fontweight='bold')  # Increased from 26
-        ax.set_xlabel('Number of Documents', labelpad=20, fontsize=26)  # Increased from 22
+        ax.set_xlabel('Number of Slides', labelpad=20, fontsize=26)  # Increased from 22
 
         # Add legend with more padding and increased font size, positioned in the right corner
         ax.legend(['Overlap', 'No overlap'], 
