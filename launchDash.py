@@ -437,12 +437,28 @@ def plot_page_overlap(df):
     # Display the plot
     st.pyplot(fig)
 
+def has_disease_state(row, states):
+    """
+    Checks if any of the given disease states are present in the disease_state array.
+    Displays the disease states being processed in the Streamlit interface.
+    """
+    if isinstance(row['disease_state'], list):
+        st.write(f"Processing disease states: {row['disease_state']}")
+        st.write(f"Looking for states: {states}")
+        result = any(state in disease for disease in row['disease_state'] for state in states)
+        st.write(f"Match found: {result}")
+        st.write("---")  # Add a separator between entries
+        return result
+    st.write(f"Not a list: {row['disease_state']}")
+    st.write("---")  # Add a separator between entries
+    return False
+
 # ----------------------------------
 # Main Streamlit App
 # ----------------------------------
  
 st.title("GLASS Dashboard")
- 
+
 st.sidebar.title("About")
 st.sidebar.info("This dashboard compares local and global documents on process adherence to the 'make a copy' process.")
 
@@ -474,6 +490,18 @@ st.sidebar.write("""
 - Chronic Lymphocytic Leukemia (CLL) with Venetoclax
 - Acute Myeloid Leukemia (AML) with Venetoclax
 - Diffuse Large B-cell Lymphoma (DLBCL) and Follicular Lymphoma (FL) with Epcoritamab
+
+**Dermatology:**
+- Psoriasis (PSO)
+- Atopic Dermatitis (AD)
+- Psoriatic Arthritis (PSA)
+
+**Rheumatology:**
+- Rheumatoid Arthritis (RA)
+
+**Gastroenterology:**
+- Crohn's Disease (CD)
+- Ulcerative Colitis (UC)
 """)
 
 # Impact and Usage
@@ -510,10 +538,10 @@ merged_docs, outliers_detected = load_and_process_data(global_csv_path, local_cs
 if merged_docs is None:
     st.error("Failed to load and process data. Please check file paths or data format.")
 else:
-    # Create a tab bar with three tabs
+    # Create a tab bar with four tabs
     tabs = st.tabs(["Oncology", "Derm", "Rheum", "Gastro"])
  
-    with tabs[0]:
+    with tabs[0]:  # Oncology
         st.subheader("Document Overlap")
         # Filter for Oncology disease states
         oncology_states = ['AML', 'CLL', 'DLBCL', 'FL']
@@ -536,5 +564,77 @@ else:
 
         st.subheader("Slide Reuse Comparison")
         plot_slide_reuse_comparison(oncology_docs)
+
+    with tabs[1]:  # Derm
+        st.subheader("Document Overlap")
+        # Filter for Dermatology disease states
+        derm_states = ['Ped Ps', 'AD', 'PsA']
+        derm_docs = merged_docs[merged_docs['disease_state'].isin(derm_states)]
+        derm_outliers = outliers_detected[outliers_detected['disease_state'].isin(derm_states)]
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("Global Document Overlap")
+            plot_stacked_bar(derm_outliers, column='outlier_class')
+        with col2:
+            st.markdown("Local Document Overlap")
+            plot_local_document_overlap(derm_docs, column='local_outlier_class')
+
+        st.subheader("Slide Overlap")
+        plot_page_overlap(derm_docs)
+
+        st.subheader("Disease State Overlap")
+        plot_overlap_pie_charts(derm_docs)
+
+        st.subheader("Slide Reuse Comparison")
+        plot_slide_reuse_comparison(derm_docs)
+
+    with tabs[2]:  # Rheum
+        st.subheader("Document Overlap")
+        # Filter for Rheumatology disease states
+        rheum_states = ['RA']
+        rheum_docs = merged_docs[merged_docs['disease_state'].isin(rheum_states)]
+        rheum_outliers = outliers_detected[outliers_detected['disease_state'].isin(rheum_states)]
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("Global Document Overlap")
+            plot_stacked_bar(rheum_outliers, column='outlier_class')
+        with col2:
+            st.markdown("Local Document Overlap")
+            plot_local_document_overlap(rheum_docs, column='local_outlier_class')
+
+        st.subheader("Slide Overlap")
+        plot_page_overlap(rheum_docs)
+
+        st.subheader("Disease State Overlap")
+        plot_overlap_pie_charts(rheum_docs)
+
+        st.subheader("Slide Reuse Comparison")
+        plot_slide_reuse_comparison(rheum_docs)
+
+    with tabs[3]:  # Gastro
+        st.subheader("Document Overlap")
+        # Filter for Gastroenterology disease states
+        gastro_states = ['CD', 'UC']
+        gastro_docs = merged_docs[merged_docs['disease_state'].isin(gastro_states)]
+        gastro_outliers = outliers_detected[outliers_detected['disease_state'].isin(gastro_states)]
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("Global Document Overlap")
+            plot_stacked_bar(gastro_outliers, column='outlier_class')
+        with col2:
+            st.markdown("Local Document Overlap")
+            plot_local_document_overlap(gastro_docs, column='local_outlier_class')
+
+        st.subheader("Slide Overlap")
+        plot_page_overlap(gastro_docs)
+
+        st.subheader("Disease State Overlap")
+        plot_overlap_pie_charts(gastro_docs)
+
+        st.subheader("Slide Reuse Comparison")
+        plot_slide_reuse_comparison(gastro_docs)
 
     
