@@ -13,19 +13,26 @@ def extract_disease_state(text):
     """
     Extracts disease state from a string by looking for content in parentheses.
     Special-cases 'DLBCL' if present.
+    Logs the extracted state using st.write.
     """
+    extracted_state = None  # Initialize
     if isinstance(text, str):
         # Look for all parentheses
-        matches = re.findall(r'\((.*?)\)', text) 
+        matches = re.findall(r'\((.*?)\)', text)
         if "DLBCL" in text:
-            return text
+            extracted_state = text
         elif matches:
             # Join the extracted parentheses contents
-            return ', '.join(matches)
+            extracted_state = ', '.join(matches)
         else:
             # If no parentheses, return the original text
-            return text
-    return None
+            extracted_state = text
+
+    # Log the extracted state if it's not None
+    # if extracted_state is not None:
+    #     st.write(f"Extracted disease state: {extracted_state}") # Logging statement
+
+    return extracted_state # Return the final extracted state
  
 def classify_overlap(x):
     """
@@ -245,19 +252,19 @@ def plot_slide_reuse_comparison(df):
         # Plot Global Content (top bar) - always show overlap (green) on the left
         ax.barh(1, global_overlap, color=overlap_color)
         ax.barh(1, global_no_overlap, left=global_overlap, color=no_overlap_color)
-        # Add percentage and count labels with increased font size
-        ax.text(global_overlap/2, 1, f"{math.ceil(row['global_overlap_pct'])}%\n({int(global_overlap)})", 
+        # Add count and percentage labels with increased font size, flipped order
+        ax.text(global_overlap/2, 1, f"{int(global_overlap)}\n({math.ceil(row['global_overlap_pct'])}%)", 
                 va='center', ha='center', color='white', fontweight='bold', fontsize=24)  # Increased from 20
-        ax.text(global_overlap + global_no_overlap/2, 1, f"{math.ceil(100-row['global_overlap_pct'])}%\n({int(global_no_overlap)})", 
+        ax.text(global_overlap + global_no_overlap/2, 1, f"{int(global_no_overlap)}\n({math.ceil(100-row['global_overlap_pct'])}%)", 
                 va='center', ha='center', color='white', fontweight='bold', fontsize=24)  # Increased from 20
 
         # Plot US Content (bottom bar) - always show overlap (green) on the left
         ax.barh(0, local_overlap, color=overlap_color)
         ax.barh(0, local_no_overlap, left=local_overlap, color=no_overlap_color)
-        # Add percentage and count labels with increased font size
-        ax.text(local_overlap/2, 0, f"{math.ceil(row['local_overlap_pct'])}%\n({int(local_overlap)})", 
+        # Add count and percentage labels with increased font size, flipped order
+        ax.text(local_overlap/2, 0, f"{int(local_overlap)}\n({math.ceil(row['local_overlap_pct'])}%)", 
                 va='center', ha='center', color='white', fontweight='bold', fontsize=24)  # Increased from 20
-        ax.text(local_overlap + local_no_overlap/2, 0, f"{math.ceil(100-row['local_overlap_pct'])}%\n({int(local_no_overlap)})", 
+        ax.text(local_overlap + local_no_overlap/2, 0, f"{int(local_no_overlap)}\n({math.ceil(100-row['local_overlap_pct'])}%)", 
                 va='center', ha='center', color='white', fontweight='bold', fontsize=24)  # Increased from 20
 
         # Add n values with increased font size
