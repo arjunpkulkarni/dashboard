@@ -11,28 +11,46 @@ import math  # Add this import at the top of the function
  
 def extract_disease_state(text):
     """
-    Extracts disease state from a string by looking for content in parentheses.
-    Special-cases 'DLBCL' if present.
-    Logs the extracted state using st.write.
+    Extracts disease state(s) from a string, prioritizing content in parentheses.
+    - Splits on every comma, returning a list of individual states.
+    - Maps "Follicular Lymphoma" (case-insensitive) to "FL".
+    - Ensures "DLBCL" is included if present anywhere in the original text.
+    - Logs each final state separately via st.write.
+    - Returns a list of unique, processed disease states.
     """
-    extracted_state = None  # Initialize
-    if isinstance(text, str):
-        # Look for all parentheses
-        matches = re.findall(r'\((.*?)\)', text)
-        if "DLBCL" in text:
-            extracted_state = text
-        elif matches:
-            # Join the extracted parentheses contents
-            extracted_state = ', '.join(matches)
-        else:
-            # If no parentheses, return the original text
-            extracted_state = text
+    if not isinstance(text, str):
+        return [] # Return empty list for non-string input
 
-    # Log the extracted state if it's not None
-    # if extracted_state is not None:
-    #     st.write(f"Extracted disease state: {extracted_state}") # Logging statement
+    # 1. Pull out anything in parentheses; if none, use whole text
+    matches = re.findall(r'\((.*?)\)', text)
+    raw = ', '.join(matches) if matches else text # Use comma as delimiter for consistency
 
-    return extracted_state # Return the final extracted state
+    # 2. Split on commas, strip whitespace
+    parts = [s.strip() for s in raw.split(',') if s.strip()]
+
+    # 3. Map follicular lymphoma -> FL
+    mapped = ['FL' if s.lower() == 'follicular lymphoma' else s for s in parts]
+
+    # 4. If DLBCL appeared in the *original* text but isn't in mapped, add it
+    if 'DLBCL' in text and not any(s.upper() == 'DLBCL' for s in mapped):
+        mapped.append('DLBCL')
+
+    # 5. De-dupe while preserving order (important for logging consistency if order matters)
+    seen = set()
+    final_states = []
+    for s in mapped:
+        # Check uppercase for DLBCL consistency if needed, otherwise direct check
+        state_key = s.upper() if s.upper() == 'DLBCL' else s
+        if state_key not in seen:
+            seen.add(state_key)
+            final_states.append(s)
+
+    # 6. Log each one separately—no commas per line
+    # for state in final_states:
+    #     st.write(f"Processed disease state: {state}")
+
+    # 7. Return the list
+    return final_states
  
 def classify_overlap(x):
     """
@@ -305,8 +323,8 @@ def plot_slide_reuse_comparison(df):
 @st.cache_data
 def load_and_process_data(global_csv_path, local_csv_path):
     """
-    Loads two CSV files (tab-delimited), merges them, and processes the columns.
-    Adjust the paths/column names to match your actual data.
+    Loads two CSV files (tab-delimited), merges them, processes columns,
+    extracts disease states (returns a list), and explodes the DataFrame.
     """
     try:
         # Load tab-delimited CSVs
@@ -337,22 +355,38 @@ def load_and_process_data(global_csv_path, local_csv_path):
             merged_docs['disease_state_local']
         )
     else:
-        merged_docs['disease_state'] = merged_docs.get('disease_state', 'Unknown')
+        # Attempt to find any column named like 'disease_state', otherwise default
+        ds_col = next((col for col in merged_docs.columns if 'disease_state' in col), None)
+        merged_docs['disease_state'] = merged_docs[ds_col] if ds_col else 'Unknown'
+
+    # --- Process disease state using extract_disease_state (now returns a list) --- 
+    # Store the list directly in 'disease_state_list'
+    merged_docs['disease_state_list'] = merged_docs['disease_state'].astype(str).apply(extract_disease_state)
+    
+    # --- Explode directly on the list --- 
+    exploded_docs = merged_docs.explode('disease_state_list')
+    
+    # Assign the single state back to 'disease_state'
+    # Ensure we handle rows that might have resulted in an empty list from extract_disease_state
+    exploded_docs['disease_state'] = exploded_docs['disease_state_list'].fillna('') 
+    
+    # Drop the intermediate list column 
+    exploded_docs = exploded_docs.drop(columns=['disease_state_list'])
+    
+    # Remove rows where the state is empty 
+    exploded_docs = exploded_docs[exploded_docs['disease_state'] != '']
+    
+    # --- Continue processing on the exploded DataFrame --- 
+    exploded_docs['reuse_p_global'] = exploded_docs.get('reuse_p_global', 0).fillna(0)
+    exploded_docs['reuse_p_local']  = exploded_docs.get('reuse_p_local', 0).fillna(0)
    
-    # If these columns exist, fill NaN with 0, then sum
-    merged_docs['reuse_p_global'] = merged_docs.get('reuse_p_global', 0).fillna(0)
-    merged_docs['reuse_p_local']  = merged_docs.get('reuse_p_local', 0).fillna(0)
+    exploded_docs['total_reuse'] = exploded_docs['reuse_p_global'] + exploded_docs['reuse_p_local']
+    exploded_docs['rounded_reuse'] = exploded_docs['total_reuse'].round()
    
-    merged_docs['total_reuse'] = merged_docs['reuse_p_global'] + merged_docs['reuse_p_local']
-    merged_docs['rounded_reuse'] = merged_docs['total_reuse'].round()
+    # Detect outliers / classify on the exploded data
+    outliers_detected = detect_outliers(exploded_docs.copy())
    
-    # Process disease state to extract from parentheses
-    merged_docs['disease_state'] = merged_docs['disease_state'].astype(str).apply(extract_disease_state)
-   
-    # Detect outliers / classify
-    outliers_detected = detect_outliers(merged_docs)
-   
-    return merged_docs, outliers_detected
+    return exploded_docs, outliers_detected
     
 def plot_page_overlap(df):
     """
@@ -551,7 +585,7 @@ else:
     with tabs[0]:  # Oncology
         st.subheader("Document Overlap")
         # Filter for Oncology disease states
-        oncology_states = ['AML', 'CLL', 'DLBCL', 'FL']
+        oncology_states = ['AML', 'CLL', 'DLBCL']
         oncology_docs = merged_docs[merged_docs['disease_state'].isin(oncology_states)]
         oncology_outliers = outliers_detected[outliers_detected['disease_state'].isin(oncology_states)]
         
@@ -599,7 +633,7 @@ else:
     with tabs[2]:  # Rheum
         st.subheader("Document Overlap")
         # Filter for Rheumatology disease states
-        rheum_states = ['RA']
+        rheum_states = ['RA', 'MM']
         rheum_docs = merged_docs[merged_docs['disease_state'].isin(rheum_states)]
         rheum_outliers = outliers_detected[outliers_detected['disease_state'].isin(rheum_states)]
         
